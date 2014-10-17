@@ -5,7 +5,6 @@ import net.sjune.mongodb.persistence.domain.User;
 import java.util.List;
 
 public interface UserDAO {
-
   public User insert(User user);
 
   public List<User> getUsers();

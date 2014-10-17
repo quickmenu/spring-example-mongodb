@@ -18,7 +18,7 @@
     # MongoDB setting
     #####################################################
     -->
-    <mongo:mongo host="${mongodb.host}" port="${mongodb.port}">
+<!--     <mongo:mongo host="${mongodb.host}" port="${mongodb.port}"> -->
 <!--         <mongo:options connections-per-host="8" -->
 <!--                        threads-allowed-to-block-for-connection-multiplier="4" -->
 <!--                        connect-timeout="1000" -->
@@ -30,7 +30,25 @@
 <!--                        write-number="1" -->
 <!--                        write-timeout="0" -->
 <!--                        write-fsync="true"/> -->
-    </mongo:mongo>
+<!--     </mongo:mongo> -->
+    
+    
+<mongo:mongo replica-set="${mongodb.host}:10001,${mongodb.host}:10002,${mongodb.host}:10003">
+	<mongo:options
+	   connections-per-host="1"
+	   threads-allowed-to-block-for-connection-multiplier="5"
+	   connect-timeout="1000"
+	   max-wait-time="5000"
+	   slave-ok="true"
+	   write-number="1"
+	   write-timeout="0"
+	   write-fsync="false"/>
+</mongo:mongo>
+<!-- <mongo:Db-factory dbname="myCollection" mongo-ref="mongo"/> -->
+<!-- <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate"> -->
+<!--   <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/> -->
+<!-- </bean> -->
+    
 
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
         <constructor-arg ref="mongo"/>

@@ -28,7 +28,12 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public List<User> getUsers() {
-    return userDAO.getUsers();
+	try {
+		return userDAO.getUsers();
+	} catch (Exception e) { // primary server를 못찾는 경우
+		System.out.println(e.getMessage());
+	}
+	return null;
   }
 
   @Override

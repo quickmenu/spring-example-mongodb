@@ -25,6 +25,29 @@ public class UserController {
 	public String userList(ModelMap model) throws Exception {
 		logger.info("called userList.");
 		List<User> users = userService.getUsers();
+		
+		if(users == null) { // 마스터 서버를 못찾을 경우 에러페이지 변경
+			
+		} else {
+			model.addAttribute("users", users);
+		}		
+		
+		return "userList";
+	}
+	
+	
+	@RequestMapping("insertList.do")
+	public String insertList(ModelMap model) throws Exception {
+		logger.info("called userList.");
+		
+		User user = new User();
+	    user.setUserName("testUserName1");
+	    user.setPassword("1111");
+
+	    userService.insertUser(user);
+	    
+	    
+		List<User> users = userService.getUsers();
 		model.addAttribute("users", users);
 		
 		return "userList";
